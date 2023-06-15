@@ -1,3 +1,7 @@
+using eTrade.Data;
+using eTrade.Data.Services.DepartmentService;
+using Microsoft.EntityFrameworkCore;
+
 namespace eTrade
 {
     public class Program
@@ -8,6 +12,13 @@ namespace eTrade
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //DBContext
+            builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder
+                .Configuration.GetConnectionString("DefaultConnectionString")));
+
+            //service configuration
+            builder.Services.AddScoped<IDepartmentsService, DepartmentsService>();
 
             var app = builder.Build();
 
