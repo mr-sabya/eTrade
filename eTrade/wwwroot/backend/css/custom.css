@@ -1,0 +1,22 @@
+﻿.add-btn{
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    font-weight: bold;
+}
+
+.confirm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+}
+
+.confirm .image{
+    width: 120px;
+    border: 1px solid #0094ff;
+    border-radius: 50%;
+    padding: 20px;
+}

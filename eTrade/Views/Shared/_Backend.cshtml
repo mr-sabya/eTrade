@@ -8,13 +8,15 @@
     <title>@ViewData["Title"] - eTrade</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="~/backend/images/favicon.png">
+    <link rel="stylesheet" href="~/backend/vendor/fontawesome/css/all.min.css" />
     <link rel="stylesheet" href="~/backend/vendor/owl-carousel/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/backend/vendor/owl-carousel/css/owl.theme.default.min.css">
     <link href="~/backend/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+
+    <link href="~/backend/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <link href="~/backend/css/style.css" rel="stylesheet">
-
-
-
+    <link href="~/backend/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
@@ -156,7 +158,11 @@
             <div class="quixnav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
-                    <li><a asp-controller="dashboard" asp-action="index"><i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a></li>
+                    <li>
+                        <a asp-controller="dashboard" asp-action="index">
+                            <i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
                     <li>
                         <a asp-controller="department" asp-action="index">
                             <i class="icon icon-single-04"></i><span class="nav-text">Departments</span>
@@ -293,6 +299,20 @@
         <div class="content-body">
             <!-- row -->
             <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Hi, welcome back!</h4>
+                            <span class="ml-1">Datatable</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Table</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Datatable</a></li>
+                        </ol>
+                    </div>
+                </div>
 
                 @RenderBody()
             </div>
@@ -315,19 +335,7 @@
     <script src="~/backend/js/custom.min.js"></script>
 
 
-    <!-- Vectormap -->
-    <script src="~/backend/vendor/raphael/raphael.min.js"></script>
-    <script src="~/backend/vendor/morris/morris.min.js"></script>
-
-
-    <script src="~/backend/vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="~/backend/vendor/chart.js/Chart.bundle.min.js"></script>
-
-    <script src="~/backend/vendor/gaugeJS/dist/gauge.min.js"></script>
-
-    <!--  flot-chart js -->
-    <script src="~/backend/vendor/flot/jquery.flot.js"></script>
-    <script src="~/backend/vendor/flot/jquery.flot.resize.js"></script>
+    
 
     <!-- Owl Carousel -->
     <script src="~/backend/vendor/owl-carousel/js/owl.carousel.min.js"></script>
@@ -337,8 +345,6 @@
     <script src="~/backend/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
     <script src="~/backend/vendor/jquery.counterup/jquery.counterup.min.js"></script>
 
-
-    <script src="~/backend/js/dashboard/dashboard-1.js"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

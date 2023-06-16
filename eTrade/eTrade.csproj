@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Shared\Components\" />
+    <Folder Include="wwwroot\Image\" />
   </ItemGroup>
 
   <ItemGroup>

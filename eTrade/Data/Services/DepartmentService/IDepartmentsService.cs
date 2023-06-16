@@ -4,14 +4,14 @@ namespace eTrade.Data.Services.DepartmentService
 {
     public interface IDepartmentsService
     {
-        Task<IEnumerable<Department>> GetAll();
+        Task<IEnumerable<Department>> GetAllASync();
 
-        Department GetDepartmentById(int departmentId);
+        Task<Department> GetDepartmentByIdAsync(int id);
 
-        void Add(Department department);
+        Task AddAsync(Department department);
 
-        Department Update(int id, Department department);
+        Task<Department> UpdateAsync(int id, Department department);
 
-        void Delete(int id);
+        Task DeleteAsync(int id);
     }
 }
