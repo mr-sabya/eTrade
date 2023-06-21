@@ -25,6 +25,7 @@ namespace eTrade.Controllers.Backend
             return View("../Backend/Category/Index", data);
         }
 
+
         [HttpGet("create")]
         public async Task<IActionResult> Create()
         {
@@ -32,6 +33,7 @@ namespace eTrade.Controllers.Backend
             ViewBag.DepartmentId = new SelectList(categoryDropDownData.Departments, "Id", "Name");
             return View("../Backend/Category/Create");
         }
+
 
         [HttpPost("create")]
         public async Task<IActionResult> Create([Bind("Name", "Slug", "DepartmentId")] Category category)

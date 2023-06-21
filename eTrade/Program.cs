@@ -2,6 +2,7 @@ using eTrade.Data;
 using eTrade.Data.Services.CategoryService;
 using eTrade.Data.Services.DepartmentService;
 using eTrade.Data.Services.HomeService;
+using eTrade.Data.Services.SubCategoryService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,6 +29,7 @@ namespace eTrade
             //admin site
             builder.Services.AddScoped<IDepartmentsService, DepartmentsService>();
             builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+            builder.Services.AddScoped<ISubCategoriesService, SubCategoryService>();
 
             //user site
             builder.Services.AddScoped<IHomeService, HomeService>();
