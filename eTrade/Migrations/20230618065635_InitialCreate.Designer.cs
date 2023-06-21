@@ -11,8 +11,8 @@ using eTrade.Data;
 namespace eTrade.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230615135058_PostMigration")]
-    partial class PostMigration
+    [Migration("20230618065635_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

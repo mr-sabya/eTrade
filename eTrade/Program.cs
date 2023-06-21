@@ -1,5 +1,7 @@
 using eTrade.Data;
+using eTrade.Data.Services.CategoryService;
 using eTrade.Data.Services.DepartmentService;
+using eTrade.Data.Services.HomeService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +25,12 @@ namespace eTrade
                 .Configuration.GetConnectionString("DefaultConnectionString")));
 
             //service configuration
+            //admin site
             builder.Services.AddScoped<IDepartmentsService, DepartmentsService>();
+            builder.Services.AddScoped<ICategoriesService, CategoriesService>();
+
+            //user site
+            builder.Services.AddScoped<IHomeService, HomeService>();
 
             var app = builder.Build();
 

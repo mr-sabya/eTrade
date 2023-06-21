@@ -1,6 +1,6 @@
-﻿@model Department
+﻿@model Category
 @{
-    ViewData["Title"] = "Delete Department";
+    ViewData["Title"] = "Delete Category";
     Layout = "_Backend";
 }
 
@@ -13,10 +13,10 @@
                         <i class="fa-solid fa-arrow-left"></i> Go Back
                     </a>
                 </div>
-                <div class="image">
-                    <img class="w-100" src="~/Image/@Model.Image" />
+                <div class="icon">
+                    <i class="fa-regular fa-circle-xmark"></i>
                 </div>
-                <h3 class="text-center mt-3 mb-4">Do you Want to Delete Department <strong>"@Model.Name"</strong></h3>
+                <h3 class="text-center mt-3 mb-4">Do you Want to Delete Category <strong>"@Model.Name"</strong>?</h3>
                 <form asp-action="delete">
                     <input type="hidden" asp-for="Id" />
                     <button type="submit" class="btn btn-danger btn-lg"><i class="fa-solid fa-trash"></i> Delete</button>

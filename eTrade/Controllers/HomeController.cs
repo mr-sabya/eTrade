@@ -1,20 +1,31 @@
-﻿using eTrade.Models;
+﻿using eTrade.Data;
+using eTrade.Data.Services.DepartmentService;
+using eTrade.Data.Services.HomeService;
+using eTrade.Data.VIewModel;
+using eTrade.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Dynamic;
 
 namespace eTrade.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDbContext _context;
+        private readonly IHomeService _service;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, AppDbContext context, IHomeService service)
         {
             _logger = logger;
+            _context = context;
+            _service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var homePageItems = await _service.GetHomePageItems();
+            ViewBag.Departments = homePageItems.Departments;
             return View();
         }
 

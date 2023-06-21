@@ -1,6 +1,8 @@
-﻿using eTrade.Data.Services.DepartmentService;
+﻿using eTrade.Data;
+using eTrade.Data.Services.DepartmentService;
 using eTrade.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eTrade.Controllers.Backend
 {
@@ -8,10 +10,12 @@ namespace eTrade.Controllers.Backend
     public class DepartmentController : Controller
     {
         private readonly IDepartmentsService _service;
+        private readonly AppDbContext _context;
 
-        public DepartmentController(IDepartmentsService service)
+        public DepartmentController(IDepartmentsService service, AppDbContext context)
         {
             _service = service;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -29,7 +33,14 @@ namespace eTrade.Controllers.Backend
         [HttpPost("create")]
         public async Task<IActionResult> Create([Bind("Name", "Slug", "ImageFile")] Department department)
         {
-            if(!ModelState.IsValid)
+            var data = _context.Departments.Any(n => n.Slug == department.Slug);
+
+            if(data)
+            {
+                ModelState.AddModelError("Slug", "Slug Already Exists");
+            }
+
+            if (!ModelState.IsValid)
             {
                 return View("../Backend/Department/Create", department);
             }
@@ -50,9 +61,22 @@ namespace eTrade.Controllers.Backend
         [HttpPost("edit/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("Id", "Name", "Slug", "ImageFile")] Department department)
         {
+
+            var check = _context.Departments.AsNoTracking().Where(x => x.Id == department.Id).FirstOrDefault();
+
+            if(check.Slug != department.Slug)
+            {
+                var data = _context.Departments.Any(n => n.Slug == department.Slug);
+
+                if (data)
+                {
+                    ModelState.AddModelError("Slug", "Slug Already Exists");
+                }
+            }
+
             if (!ModelState.IsValid)
             {
-                return View("../Backend/Department/Create", department);
+                return View("../Backend/Department/Edit", department);
             }
 
             await _service.UpdateAsync(id, department);

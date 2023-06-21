@@ -11,7 +11,7 @@ namespace eTrade.Models
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Insert Slug")]
         public string Slug { get; set; }
 
         [Display(Name = "Upload Name")]
@@ -20,5 +20,9 @@ namespace eTrade.Models
         [NotMapped]
         [Display(Name = "Upload Image")]
         public IFormFile ImageFile { get; set; }
+
+
+        //relationships
+        public List<Category> categories { get; set; }
     }
 }

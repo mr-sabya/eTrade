@@ -20,3 +20,8 @@
     border-radius: 50%;
     padding: 20px;
 }
+
+.confirm .icon i{
+    font-size: 100px;
+    color: #ff0000;
+}

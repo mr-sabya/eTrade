@@ -1,5 +1,6 @@
 ﻿using eTrade.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eTrade.Data
 {
@@ -9,6 +10,10 @@ namespace eTrade.Data
         {
         }
 
+
         public DbSet<Department> Departments { get; set; }
+
+
+        public DbSet<Category> Categories { get; set; }
     }
 }
