@@ -1,4 +1,4 @@
-﻿using eTrade.Data.VIewModel;
+﻿using eTrade.Data.ViewModel;
 using eTrade.Models;
 
 namespace eTrade.Data.Services.CategoryService

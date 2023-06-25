@@ -1,7 +1,7 @@
 ﻿using eTrade.Data;
 using eTrade.Data.Services.DepartmentService;
 using eTrade.Data.Services.HomeService;
-using eTrade.Data.VIewModel;
+using eTrade.Data.ViewModel;
 using eTrade.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -26,6 +26,7 @@ namespace eTrade.Controllers
         {
             var homePageItems = await _service.GetHomePageItems();
             ViewBag.Departments = homePageItems.Departments;
+            ViewBag.Banners = homePageItems.Banners;
             return View();
         }
 

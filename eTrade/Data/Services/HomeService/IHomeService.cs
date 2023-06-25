@@ -1,9 +1,9 @@
-﻿using eTrade.Data.VIewModel;
+﻿using eTrade.Data.ViewModel;
 
 namespace eTrade.Data.Services.HomeService
 {
     public interface IHomeService
     {
-        Task<HomePage> GetHomePageItems();
+        Task<HomePageViewModel> GetHomePageItems();
     }
 }

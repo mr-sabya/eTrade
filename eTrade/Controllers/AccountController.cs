@@ -1,5 +1,5 @@
 ﻿using eTrade.Data;
-using eTrade.Data.VIewModel;
+using eTrade.Data.ViewModel;
 using eTrade.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -81,11 +81,8 @@ namespace eTrade.Controllers
         {
             await _signInManager.SignOutAsync();
 
-            if (User.IsInRole("admin"))
-            {
-                return Redirect("/admin");
-            }
-            return RedirectToAction("Index", "Home");
+           
+            return RedirectToAction("login", "account");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using eTrade.Data.VIewModel;
+﻿using eTrade.Data.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace eTrade.Data.Services.HomeService
@@ -13,11 +13,15 @@ namespace eTrade.Data.Services.HomeService
         }
 
 
-        public async Task<HomePage> GetHomePageItems()
+        public async Task<HomePageViewModel> GetHomePageItems()
         {
-            var response = new HomePage()
+            var response = new HomePageViewModel()
             {
-                Departments = await _context.Departments.OrderBy(n => n.Name).ToListAsync()
+                Departments = await _context.Departments.Include(n => n.categories)
+                .ThenInclude(n => n.subCategories).OrderBy(n => n.Name).ToListAsync(),
+
+                Banners = await _context.Banners.ToListAsync(),
+                
             };
 
             return response;

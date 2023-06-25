@@ -1,4 +1,4 @@
-﻿@using eTrade.Data.VIewModel;
+﻿@using eTrade.Data.ViewModel;
 @model LoginViewModel;
 
 
@@ -10,7 +10,7 @@
 <div class="signin-header">
     <div class="row align-items-center">
         <div class="col-sm-4">
-            <a href="index.html" class="site-logo"><img src="~/assets/images/logo/logo.png" alt="logo"></a>
+            <partial name="../Shared/Partials/_Logo.cshtml" />
         </div>
         <div class="col-sm-8">
             <div class="singin-header-btn">

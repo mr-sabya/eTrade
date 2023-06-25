@@ -1,4 +1,4 @@
-﻿using eTrade.Data.VIewModel;
+﻿using eTrade.Data.ViewModel;
 using eTrade.Models;
 using Microsoft.EntityFrameworkCore;
 

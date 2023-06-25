@@ -19,5 +19,9 @@ namespace eTrade.Models
         public int DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
         public Department Department { get; set; }
+
+
+        //relationships
+        public List<SubCategory> subCategories{ get; set; }
     }
 }

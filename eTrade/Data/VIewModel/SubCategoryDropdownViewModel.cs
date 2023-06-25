@@ -1,7 +1,7 @@
 ﻿using eTrade.Models;
 
-namespace eTrade.Data.VIewModel
-{
+namespace eTrade.Data.ViewModel
+{   
     public class SubCategoryDropdownViewModel
     {
         public SubCategoryDropdownViewModel() {

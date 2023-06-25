@@ -1,0 +1,57 @@
+﻿@model Banner
+@{
+    ViewData["Title"] = "Add New Banner";
+    Layout = "_Backend";
+}
+
+<div class="row">
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Add New Banner</h4>
+            </div>
+            <div class="card-body">
+                <div class="basic-form">
+                    <form asp-action="create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="Type"></label>
+                            <input asp-for="Type" class="form-control" placeholder="i.e. Smart Watch"/>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Title"></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Icon"></label>
+                            <input asp-for="Icon" class="form-control" />
+                            <span asp-validation-for="Icon" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Link"></label>
+                            <input asp-for="Link" class="form-control" />
+                            <span asp-validation-for="Link" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="ImageFile"></label>
+                            <input asp-for="ImageFile" class="form-control" />
+                            <span asp-validation-for="ImageFile" class="text-danger"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+  
+</div>
+

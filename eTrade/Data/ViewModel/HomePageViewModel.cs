@@ -2,13 +2,16 @@
 
 namespace eTrade.Data.ViewModel
 {
-    public class CategoryDropdownViewModel
+    public class HomePageViewModel
     {
-        public CategoryDropdownViewModel() 
+        public HomePageViewModel()
         {
             Departments = new List<Department>();
+            Banners = new List<Banner>();
         }
 
         public List<Department> Departments { get; set; }
+        public List<Banner> Banners { get; set; }   
+        
     }
 }

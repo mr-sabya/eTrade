@@ -27,30 +27,50 @@
                 <i class="flaticon-shopping-cart"></i>
             </a>
         </li>
-        <li class="my-account">
-            <a href="javascript:void(0)">
-                <i class="flaticon-person"></i>
-            </a>
-            <div class="my-account-dropdown">
-                <span class="title">QUICKLINKS</span>
-                <ul>
-                    <li>
-                        <a href="my-account.html">My Account</a>
-                    </li>
-                    <li>
-                        <a href="#">Initiate return</a>
-                    </li>
-                    <li>
-                        <a href="#">Support</a>
-                    </li>
-                    <li>
-                        <a href="#">Language</a>
-                    </li>
-                </ul>
-                <a href="sign-in.html" class="axil-btn btn-bg-primary">Login</a>
-                <div class="reg-footer text-center">No account yet? <a href="sign-up.html" class="btn-link">REGISTER HERE.</a></div>
-            </div>
-        </li>
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <li class="my-account">
+                <a href="javascript:void(0)">
+                    <i class="flaticon-person"></i>
+                </a>
+                <div class="my-account-dropdown">
+                    <span class="title">QUICKLINKS</span>
+                    <ul>
+                        <li>
+                            <a href="my-account.html">My Account</a>
+                        </li>
+                        <li>
+                            <a href="#">Initiate return</a>
+                        </li>
+                        <li>
+                            <a href="#">Support</a>
+                        </li>
+                        <li>
+                            <a href="#">Language</a>
+                        </li>
+                    </ul>
+
+                    <a class="axil-btn btn-bg-primary" href="javascript:void(0)" onclick="document.getElementById('logout').submit();">
+                        <i class="icon-key"></i>
+                        <span class="ml-2">Logout </span>
+                    </a>
+                    <form asp-controller="Account" asp-action="Logout" id="logout">
+                    </form>
+                    
+                </div>
+            </li>
+        }
+        else
+        {
+            <li class="my-account">
+                <a asp-controller="account" asp-action="login">
+                    <i class="flaticon-person"></i>
+                </a>
+                
+            </li>
+        }
+
         <li class="axil-mobile-toggle">
             <button class="menu-btn mobile-nav-toggler">
                 <i class="flaticon-menu-2"></i>

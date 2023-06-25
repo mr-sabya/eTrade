@@ -1,4 +1,5 @@
 using eTrade.Data;
+using eTrade.Data.Services.BannerService;
 using eTrade.Data.Services.CategoryService;
 using eTrade.Data.Services.DepartmentService;
 using eTrade.Data.Services.HomeService;
@@ -33,6 +34,7 @@ namespace eTrade
             builder.Services.AddScoped<IDepartmentsService, DepartmentsService>();
             builder.Services.AddScoped<ICategoriesService, CategoriesService>();
             builder.Services.AddScoped<ISubCategoriesService, SubCategoryService>();
+            builder.Services.AddScoped<IBannersService, BannersService>();
 
             //user site
             builder.Services.AddScoped<IHomeService, HomeService>();
