@@ -1,13 +1,17 @@
 ﻿using eTrade.Data;
 using eTrade.Data.Services.CategoryService;
+using eTrade.Data.Static;
 using eTrade.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace eTrade.Controllers.Backend
 {
     [Route("admin/category")]
+    [Authorize(Roles = UserRoles.Admin)]
     public class CategoryController : Controller
     {
         private readonly ICategoriesService _service;
@@ -80,7 +84,7 @@ namespace eTrade.Controllers.Backend
 
             if (check.Slug != category.Slug)
             {
-                var data = _context.Departments.Any(n => n.Slug == category.Slug);
+                var data = _context.Categories.Any(n => n.Slug == category.Slug);
 
                 if (data)
                 {

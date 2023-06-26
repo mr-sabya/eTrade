@@ -3,6 +3,7 @@ using eTrade.Data.Services.BannerService;
 using eTrade.Data.Services.CategoryService;
 using eTrade.Data.Services.DepartmentService;
 using eTrade.Data.Services.HomeService;
+using eTrade.Data.Services.ServiceService;
 using eTrade.Data.Services.SubCategoryService;
 using eTrade.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -35,6 +36,7 @@ namespace eTrade
             builder.Services.AddScoped<ICategoriesService, CategoriesService>();
             builder.Services.AddScoped<ISubCategoriesService, SubCategoryService>();
             builder.Services.AddScoped<IBannersService, BannersService>();
+            builder.Services.AddScoped<IServicesService, ServicesService>();
 
             //user site
             builder.Services.AddScoped<IHomeService, HomeService>();

@@ -17,5 +17,6 @@ namespace eTrade.Data
         public DbSet<SubCategory> SubCategories {get; set;}
 
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<Service> Services { get; set; }
     }
 }

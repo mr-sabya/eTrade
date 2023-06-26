@@ -1,13 +1,17 @@
 ﻿using eTrade.Data;
 using eTrade.Data.Services.SubCategoryService;
+using eTrade.Data.Static;
 using eTrade.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace eTrade.Controllers.Backend
 {
     [Route("admin/sub-category")]
+    [Authorize(Roles = UserRoles.Admin)]
     public class SubCategoryController : Controller
     {
         private readonly ISubCategoriesService _service;
@@ -108,6 +112,72 @@ namespace eTrade.Controllers.Backend
             ViewBag.CategoryId = new SelectList(categories, "Value", "Text");
 
             return View("../Backend/SubCategory/Edit", category);
+        }
+
+
+
+        [HttpPost("edit/{id}")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id", "Name", "Slug", "CategoryId")] SubCategory subCategory)
+        {
+
+            var check = _context.SubCategories.AsNoTracking().Where(x => x.Id == subCategory.Id).FirstOrDefault();
+
+            if (check.Slug != subCategory.Slug)
+            {
+                var data = _context.SubCategories.Any(n => n.Slug == subCategory.Slug);
+
+                if (data)
+                {
+                    ModelState.AddModelError("Slug", "Slug Already Exists");
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var subCategoryDropDownData = await _service.SubCategoryDropdownsValues();
+                List<SelectListItem> categories = subCategoryDropDownData.Categories.Select(c => new SelectListItem
+                {
+                    Value = c.Id.ToString(),
+                    Text = c.Department.Name + " - " + c.Name,
+                }).ToList();
+
+                var categoryTip = new SelectListItem()
+                {
+                    Value = null,
+                    Text = "--- select category ---"
+                };
+                categories.Insert(0, categoryTip);
+
+                ViewBag.CategoryId = new SelectList(categories, "Value", "Text");
+
+                return View("../Backend/SubCategory/Edit", subCategory);
+            }
+
+            await _service.UpdateAsync(id, subCategory);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+
+        [HttpGet("delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var category = await _service.GetCategoryByIdAsync(id);
+
+            if (category == null) { }
+
+            return View("../Backend/SubCategory/Delete", category);
+        }
+
+        [HttpPost("delete/{id}"), ActionName("delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var category = await _service.GetCategoryByIdAsync(id);
+
+            if (category == null) { }
+
+            await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
 
     }

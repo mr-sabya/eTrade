@@ -1,12 +1,16 @@
 ﻿using eTrade.Data.Services.BannerService;
+using eTrade.Data.Static;
 using eTrade.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace eTrade.Controllers.Backend
 {
     [Route("admin/banner")]
+    [Authorize(Roles = UserRoles.Admin)]
     public class BannerController : Controller
     {
         private readonly IBannersService _service;

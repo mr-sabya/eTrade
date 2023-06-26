@@ -30,6 +30,11 @@
                             <span asp-validation-for="Slug" class="text-danger"></span>
                         </div>
 
+                        <div class="form-group text-center" style="border: 1px solid #ddd; padding: 10px">
+                            <label class="d-block">Image</label>
+                            <img src="~/Image/@Model.Image" id="imageFilePreview" style="width: 100px" />
+                        </div>
+
                         <div class="form-group">
                             <label asp-for="ImageFile"></label>
                             <input asp-for="ImageFile" class="form-control" />
@@ -54,6 +59,22 @@
             Text = Text.toLowerCase();
             Text = Text.replace(/[^a-zA-Z0-9]+/g, '-');
             $("#Slug").val(Text);
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imageFilePreview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#ImageFile").change(function () {
+            readURL(this);
         });
     </script>
 }

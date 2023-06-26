@@ -1,12 +1,16 @@
 ﻿using eTrade.Data;
 using eTrade.Data.Services.DepartmentService;
+using eTrade.Data.Static;
 using eTrade.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace eTrade.Controllers.Backend
 {
     [Route("admin/department")]
+    [Authorize(Roles = UserRoles.Admin)]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentsService _service;

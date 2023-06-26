@@ -1,6 +1,6 @@
 ﻿@model SubCategory
 @{
-    ViewData["Title"] = "Add Sub Category";
+    ViewData["Title"] = "Edit Category";
     Layout = "_Backend";
 }
 
@@ -8,12 +8,14 @@
     <div class="col-lg-5">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Add New Sub Category</h4>
+                <h4 class="card-title">Edit Sub Category</h4>
             </div>
             <div class="card-body">
                 <div class="basic-form">
-                    <form asp-action="create" enctype="multipart/form-data">
+                    <form asp-action="edit" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <input asp-for="Id" type="hidden" class="form-control" />
 
                         <div class="form-group">
                             <label asp-for="Name"></label>

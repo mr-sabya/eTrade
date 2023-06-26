@@ -19,9 +19,11 @@ namespace eTrade.Data.Services.SubCategoryService
             await _context.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.SubCategories.FirstOrDefaultAsync(n => n.Id == id);
+            _context.SubCategories.Remove(result);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<SubCategory>> GetAllASync()
@@ -44,9 +46,11 @@ namespace eTrade.Data.Services.SubCategoryService
             return response;
         }
 
-        public Task<Category> UpdateAsync(int id, SubCategory subCategory)
+        public async Task<SubCategory> UpdateAsync(int id, SubCategory subCategory)
         {
-            throw new NotImplementedException();
+            _context.Entry(subCategory).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return subCategory;
         }
     }
 }

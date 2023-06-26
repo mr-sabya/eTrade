@@ -13,7 +13,7 @@ namespace eTrade.Data.Services.SubCategoryService
 
         Task AddAsync(SubCategory subCategory);
 
-        Task<Category> UpdateAsync(int id, SubCategory subCategory);
+        Task<SubCategory> UpdateAsync(int id, SubCategory subCategory);
 
         Task DeleteAsync(int id);
     }

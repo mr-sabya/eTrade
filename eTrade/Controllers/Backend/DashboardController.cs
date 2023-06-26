@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace eTrade.Controllers.Backend
 {
-    [Authorize(Roles = UserRoles.Admin)]
     [Route("admin")]
+    [Authorize(Roles = UserRoles.Admin)]
     public class DashboardController : Controller
     {
         public IActionResult Index()
