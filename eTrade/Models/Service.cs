@@ -15,7 +15,6 @@ namespace eTrade.Models
         public string Image { get; set; }
 
         [NotMapped]
-        [Required]
         [Display(Name = "Upload Image")]
         public IFormFile ImageFile { get; set; }
     }

@@ -21,6 +21,8 @@ namespace eTrade.Data.Services.HomeService
                 .ThenInclude(n => n.subCategories).OrderBy(n => n.Name).ToListAsync(),
 
                 Banners = await _context.Banners.ToListAsync(),
+
+                Services = await _context.Services.ToListAsync(),
                 
             };
 

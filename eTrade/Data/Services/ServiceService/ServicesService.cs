@@ -49,9 +49,34 @@ namespace eTrade.Data.Services.ServiceService
             return result;
         }
 
-        public Task<Service> UpdateAsync(int id, Service service)
+        public async Task<Service> UpdateAsync(int id, Service service)
         {
-            throw new NotImplementedException();
+            var data = _context.Services.AsNoTracking().Where(x => x.Id == service.Id).FirstOrDefault();
+            string imageName = data.Image;
+
+            if (service.ImageFile != null)
+            {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(service.ImageFile.FileName);
+                string extension = Path.GetExtension(service.ImageFile.FileName);
+                string fullImage = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                service.Image = fullImage;
+                string path = Path.Combine(wwwRootPath + "/Image/", fullImage);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await service.ImageFile.CopyToAsync(fileStream);
+                }
+            }
+            else
+            {
+                service.Image = imageName;
+            }
+
+
+            _context.Entry(service).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return service;
         }
     }
 }

@@ -25,8 +25,11 @@ namespace eTrade.Controllers
         public async Task<IActionResult> Index()
         {
             var homePageItems = await _service.GetHomePageItems();
+
             ViewBag.Departments = homePageItems.Departments;
             ViewBag.Banners = homePageItems.Banners;
+            ViewBag.Services = homePageItems.Services;
+
             return View();
         }
 

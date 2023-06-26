@@ -54,5 +54,20 @@ namespace eTrade.Controllers.Backend
 
             return View("../Backend/Service/Edit", service);
         }
+
+
+        [HttpPost("edit/{id}")]
+        public async Task<IActionResult> Edit(int id, [Bind("Id", "Text", "ImageFile")] Service service)
+        {
+            service = await _service.GetServiceByIdAsync(id);
+
+            if (!ModelState.IsValid)
+            {
+                return View("../Backend/Service/Edit", service);
+            }
+
+            await _service.UpdateAsync(id, service);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
