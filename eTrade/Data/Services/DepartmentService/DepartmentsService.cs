@@ -6,9 +6,6 @@ namespace eTrade.Data.Services.DepartmentService
 {
     public class DepartmentsService :EntityBaseRepository<Department>, IDepartmentsService
     {
-        
         public DepartmentsService(AppDbContext context) : base(context) { }
-        
-        
     }
 }

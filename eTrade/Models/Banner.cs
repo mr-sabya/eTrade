@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eTrade.Data.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eTrade.Models
 {
-    public class Banner
+    public class Banner : IEntityBase
     {
         [Key]
         public int Id { get; set; }

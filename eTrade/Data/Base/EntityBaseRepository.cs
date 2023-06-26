@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Linq.Expressions;
 
 namespace eTrade.Data.Base
 {
@@ -29,10 +30,17 @@ namespace eTrade.Data.Base
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllASync()
+        public async Task<IEnumerable<T>> GetAllAsync()
         {
             var result = await _context.Set<T>().ToListAsync();
             return result;
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] expressions)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            query = expressions.Aggregate(query, (current, expression) => current.Include(expression));
+            return await query.ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(int id)

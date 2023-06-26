@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using eTrade.Data.Base;
 
 namespace eTrade.Models
 {
-    public class SubCategory
+    public class SubCategory : IEntityBase
     {
         [Key]
         public int Id { get; set; }

@@ -25,7 +25,7 @@ namespace eTrade.Controllers.Backend
 
         public async Task<IActionResult> Index()
         {
-            var data = await _service.GetAllASync();
+            var data = await _service.GetAllAsync(n => n.Category);
             return View("../Backend/SubCategory/Index", data);
         }
 
@@ -33,6 +33,7 @@ namespace eTrade.Controllers.Backend
         [HttpGet("create")]
         public async Task<IActionResult> Create()
         {
+            //sub category drop down items
             var subCategoryDropDownData = await _service.SubCategoryDropdownsValues();
             List<SelectListItem> categories = subCategoryDropDownData.Categories.Select(c => new SelectListItem
             {
@@ -57,15 +58,12 @@ namespace eTrade.Controllers.Backend
         [HttpPost("create")]
         public async Task<IActionResult> Create([Bind("Name", "Slug", "CategoryId")] SubCategory subCategory)
         {
-            var data = _context.SubCategories.Any(n => n.Slug == subCategory.Slug);
+            var getSubCategory = _context.SubCategories.Any(n => n.Slug == subCategory.Slug);
 
-            if (data)
-            {
-                ModelState.AddModelError("Slug", "Slug Already Exists");
-            }
-
+            //validate
             if (!ModelState.IsValid)
             {
+                //sub category drop down items
                 var subCategoryDropDownData = await _service.SubCategoryDropdownsValues();
                 List<SelectListItem> categories = subCategoryDropDownData.Categories.Select(c => new SelectListItem
                 {
@@ -84,17 +82,30 @@ namespace eTrade.Controllers.Backend
 
                 return View("../Backend/SubCategory/Create", subCategory);
             }
+
+
+            //check unique slug
+            if (getSubCategory)
+            {
+                ModelState.AddModelError("Slug", "Slug Already Exists");
+            }
+
+            //add new data
             await _service.AddAsync(subCategory);
             return RedirectToAction(nameof(Index));
         }
 
+
+
         [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var category = await _service.GetCategoryByIdAsync(id);
+            var subCategory = await _service.GetByIdAsync(id);
 
-            if (category == null) { }
+            if (subCategory == null) return View("../Backend/SubCategory/NotFound");
 
+
+            //sub category drop down items
             var subCategoryDropDownData = await _service.SubCategoryDropdownsValues();
             List<SelectListItem> categories = subCategoryDropDownData.Categories.Select(c => new SelectListItem
             {
@@ -111,7 +122,7 @@ namespace eTrade.Controllers.Backend
 
             ViewBag.CategoryId = new SelectList(categories, "Value", "Text");
 
-            return View("../Backend/SubCategory/Edit", category);
+            return View("../Backend/SubCategory/Edit", subCategory);
         }
 
 
@@ -120,9 +131,9 @@ namespace eTrade.Controllers.Backend
         public async Task<IActionResult> Edit(int id, [Bind("Id", "Name", "Slug", "CategoryId")] SubCategory subCategory)
         {
 
-            var check = _context.SubCategories.AsNoTracking().Where(x => x.Id == subCategory.Id).FirstOrDefault();
+            var getSubCategory = _context.SubCategories.AsNoTracking().Where(x => x.Id == subCategory.Id).FirstOrDefault();
 
-            if (check.Slug != subCategory.Slug)
+            if (getSubCategory.Slug != subCategory.Slug)
             {
                 var data = _context.SubCategories.Any(n => n.Slug == subCategory.Slug);
 
@@ -162,19 +173,21 @@ namespace eTrade.Controllers.Backend
         [HttpGet("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var category = await _service.GetCategoryByIdAsync(id);
+            var subCategory = await _service.GetByIdAsync(id);
 
-            if (category == null) { }
+            if (subCategory == null) return View("../Backend/SubCategory/NotFound");
 
-            return View("../Backend/SubCategory/Delete", category);
+            return View("../Backend/SubCategory/Delete", subCategory);
         }
+
+
 
         [HttpPost("delete/{id}"), ActionName("delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _service.GetCategoryByIdAsync(id);
+            var subCategory = await _service.GetByIdAsync(id);
 
-            if (category == null) { }
+            if (subCategory == null) return View("../Backend/SubCategory/NotFound");
 
             await _service.DeleteAsync(id);
             return RedirectToAction(nameof(Index));

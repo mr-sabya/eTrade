@@ -26,7 +26,7 @@ namespace eTrade.Controllers.Backend
 
         public async Task<IActionResult> Index()
         {
-            var data = await _service.GetAllASync();
+            var data = await _service.GetAllAsync();
             return View("../Backend/Department/Index", data);
         }
 
