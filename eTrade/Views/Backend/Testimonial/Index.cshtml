@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Testimonial>
+@{
+    ViewData["Title"] = "Testimonials";
+    Layout = "_Backend";
+}
+
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">Basic Datatable</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table id="example" class="display" style="min-width: 845px">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Slug</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int count = 0;
+                            }
+                            @foreach (var testimonial in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @{
+                                            count = count + 1;
+                                        }
+                                        @count
+                                    </td>
+                                    <td>
+                                        <img src="~/Image/@testimonial.Image" style="width: 80px" />
+                                    </td>
+                                    <td>@testimonial.Name</td>
+                                    <td>@testimonial.Company</td>
+                                    <td>
+                                        <a class="btn btn-outline-primary" asp-action="edit" asp-route-id="@testimonial.Id">
+                                            <i class="fa-solid fa-pen"></i> Edit
+                                        </a>
+                                        <a class="btn btn-outline-danger" asp-action="delete" asp-route-id="@testimonial.Id">
+                                            <i class="fa-solid fa-trash"></i> Delete
+                                        </a>
+                                    </td>
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Slug</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<a asp-controller="testimonial" asp-action="create" class="btn btn-primary btn-lg text-white add-btn"> <i class="fa-solid fa-plus"></i> Add New</a>
+
+
+@section Scripts{
+
+    <script src="~/backend/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script>
+        $('#example').DataTable();
+
+
+    </script>
+}

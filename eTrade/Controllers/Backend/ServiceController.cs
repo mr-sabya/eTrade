@@ -15,16 +15,18 @@ namespace eTrade.Controllers.Backend
     {
         private readonly IServicesService _service;
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public ServiceController(IServicesService service, AppDbContext context)
+        public ServiceController(IServicesService service, AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _service = service;
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = await _service.GetAllASync();
+            var data = await _service.GetAllAsync();
             return View("../Backend/Service/Index", data);
         }
 
@@ -41,6 +43,20 @@ namespace eTrade.Controllers.Backend
             {
                 return View("../Backend/Service/Create", service);
             }
+
+            string wwwRootPath = _webHostEnvironment.WebRootPath;
+            string fileName = Path.GetFileNameWithoutExtension(service.ImageFile.FileName);
+            string extension = Path.GetExtension(service.ImageFile.FileName);
+            string fullImage = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            service.Image = fullImage;
+            string path = Path.Combine(wwwRootPath + "/Image/", fullImage);
+
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await service.ImageFile.CopyToAsync(fileStream);
+            }
+
+
             await _service.AddAsync(service);
             return RedirectToAction(nameof(Index));
         }
@@ -48,7 +64,7 @@ namespace eTrade.Controllers.Backend
         [HttpGet("edit/{id}")]
         public async Task<IActionResult> Edit(int id)
         {
-            var service = await _service.GetServiceByIdAsync(id);
+            var service = await _service.GetByIdAsync(id);
 
             if (service == null) { }
 
@@ -59,11 +75,33 @@ namespace eTrade.Controllers.Backend
         [HttpPost("edit/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("Id", "Text", "ImageFile")] Service service)
         {
-            service = await _service.GetServiceByIdAsync(id);
+            //service = await _service.GetByIdAsync(id);
+            var getService = _context.Services.AsNoTracking().Where(x => x.Id == service.Id).FirstOrDefault();
 
             if (!ModelState.IsValid)
             {
-                return View("../Backend/Service/Edit", service);
+                return View("../Backend/Service/Edit", getService);
+            }
+         
+            string imageName = getService.Image;
+
+            if (service.ImageFile != null)
+            {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(service.ImageFile.FileName);
+                string extension = Path.GetExtension(service.ImageFile.FileName);
+                string fullImage = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                service.Image = fullImage;
+                string path = Path.Combine(wwwRootPath + "/Image/", fullImage);
+
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await service.ImageFile.CopyToAsync(fileStream);
+                }
+            }
+            else
+            {
+                service.Image = imageName;
             }
 
             await _service.UpdateAsync(id, service);

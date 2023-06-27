@@ -15,7 +15,8 @@ namespace eTrade.Controllers.Backend
     public class DepartmentController : Controller
     {
         private readonly IDepartmentsService _service;
-        private readonly AppDbContext _context; private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
         public DepartmentController(IDepartmentsService service, AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
@@ -93,7 +94,7 @@ namespace eTrade.Controllers.Backend
             //validate
             if (!ModelState.IsValid)
             {
-                return View("../Backend/Department/Edit", department);
+                return View("../Backend/Department/Edit", getDepartment);
             }
 
             //check unique slug
@@ -109,7 +110,6 @@ namespace eTrade.Controllers.Backend
 
 
             //upload image
-
             string imageName = getDepartment.Image;
             if (getDepartment.ImageFile != null)
             {

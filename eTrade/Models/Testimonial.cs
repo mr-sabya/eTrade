@@ -4,18 +4,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eTrade.Models
 {
-    public class Service : IEntityBase
+    public class Testimonial : IEntityBase
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public string Text { get; set; }
+        public string Name { get; set; }
+
+        [Required]
+        public string Company { get; set; }
+
+
+        [Required]
+        [DataType(DataType.Text)]
+        public string Feedback { get; set; }
+
 
         [Display(Name = "Upload Name")]
         public string Image { get; set; }
 
+
         [NotMapped]
+        [Required(ErrorMessage = "Please upload Client Image")]
         [Display(Name = "Upload Image")]
         public IFormFile ImageFile { get; set; }
     }

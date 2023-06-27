@@ -18,5 +18,6 @@ namespace eTrade.Data
 
         public DbSet<Banner> Banners { get; set; }
         public DbSet<Service> Services { get; set; }
+        public DbSet<Testimonial> Testimonials { get; set; }
     }
 }

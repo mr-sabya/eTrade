@@ -92,6 +92,7 @@ namespace eTrade.Controllers.Backend
             {
                 var categoryDropDownData = await _service.CategoryDropdownsValues();
                 ViewBag.DepartmentId = new SelectList(categoryDropDownData.Departments, "Id", "Name");
+
                 return View("../Backend/Category/Edit", category);
             }
 

@@ -77,15 +77,16 @@ namespace eTrade.Controllers.Backend
         [HttpPost("edit/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("Id", "Icon", "Type", "Title", "Link", "ImageFile")] Banner banner)
         {
+            //upload image
+            var getBanner = _context.Banners.AsNoTracking().Where(x => x.Id == banner.Id).FirstOrDefault();
+
             //validation
             if (!ModelState.IsValid)
             {
-                return View("../Backend/Banner/Edit", banner);
+                return View("../Backend/Banner/Edit", getBanner);
             }
 
-
             //upload image
-            var getBanner = _context.Banners.AsNoTracking().Where(x => x.Id == banner.Id).FirstOrDefault();
             string imageName = getBanner.Image;
 
             if (banner.ImageFile != null)

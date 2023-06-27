@@ -1,17 +1,9 @@
-﻿using eTrade.Models;
+﻿using eTrade.Data.Base;
+using eTrade.Models;
 
 namespace eTrade.Data.Services.ServiceService
 {
-    public interface IServicesService
+    public interface IServicesService : IEntityBaseRepository<Service>
     {
-        Task<IEnumerable<Service>> GetAllASync();
-
-        Task<Service> GetServiceByIdAsync(int id);
-
-        Task AddAsync(Service service);
-
-        Task<Service> UpdateAsync(int id, Service service);
-
-        Task DeleteAsync(int id);
     }
 }
